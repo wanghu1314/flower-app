@@ -1,24 +1,26 @@
 <template>
-    <ul class="home-list clearfix">
-					<li v-for="(elem,i) of list" :key="i">
-						<router-link :to="{path:'/details',query:{fid:myhref}}">
-							<img :src="elem.img" alt="elem.title">
-						</router-link>
-					</li>
-		</ul>
+     <ul class="f2_banner">
+              <li>
+                <router-link :to="{path:'/details',query:{fid:myhref}}">
+                  <img :src="imgurl" alt="">
+                  <div>
+                      <h3>{{title}}</h3>
+                      <h2>￥{{price}}</h2>
+                      <p>APP折后价￥<span class="update_app_price">179</span>元，省<span class="save_money">20</span>元。</p>	
+                  </div>
+                </router-link>  
+              </li>
+            
+            </ul>
 </template>
 <script>
+
     import '../assets/css/base.css';
+// import '../assets/js/index.js';
   export default{
     data(){
       return {
-        list:[
-          {title:"新品",img:'img/new1.jpg'},
-          {title:"生日",img:'img/brithday.png'},
-          {title:"儿童",img:'img/baby.png'},
-          {title:"聚会",img:'img/party.png'},
-          {title:"活动",img:'img/play.png'}
-        ]
+        
        
       }
       
@@ -38,30 +40,43 @@
 <style scoped>
 
 /*鼠标悬浮图片移动效果*/
-.home-list{
-	width:70%;
-  display:flex;
-  justify-content: space-around;
-  flex-direction: row;
-	margin:50px auto 0px;
+.f2_banner>li img:hover{
+  transform: translateX(-10px);
 }
-.home-list li{
-  width:100%;
-  padding:10px;
-	}
-.home-list li a{
-	display: block;
-	border-radius:8px;
-	box-shadow:0 2px 6px 0 rgba(0,0,0,0.6);
-	overflow:hidden;
+.f2_banner>li img{
+  width:240px;
+  height:240px;
+  overflow: hidden;
+  transition: all 0.2s;
 }
-.home-list li a img{
-	display: block;
-  opacity: 0.9;
+.f2_banner>li{
+  float: left;
+  width:240px;
+  padding:29px;
+  cursor: pointer;
 }
-.home-list li a img:hover{
-	transform:scale(1.1);
-	transition-duration:1s;
+/*f2 div上内边距 文字居中 color 大小*/
+.f2_banner>li div{
+  text-align: center;
+  padding-top: 20px;
+}
+.f2_banner>li h3{
+  font-size: 14px;
+  color: #000;
+  line-height: 30px;
+}
+.f2_banner>li h2{
+  font-size: 14px;
+  color: #000;
+  font-weight: bold;
+}
+.f2_banner>li p{
+  font-size:13px;
+  -o-text-overflow: ellipsis;
+  text-overflow: ellipsis;
+  padding-top: 5px;
+  color: #b2904c;
+  height: 20px;
 }
 </style>
 

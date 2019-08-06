@@ -2,40 +2,54 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Index from './views/Index'
 import Details from './views/Details'
-import Productlist from './views/Productlist'
+import Home from './views/Home'
+import Product from './views/Product'
+import Cart from './views/Cart'
+import Classify from './views/Classify'
+import Find from './views/Find'
+import Search from './views/Search'
 import Login from './views/Login'
-import carouselSwiper from './components/carouselSwiper.vue'
-import carousel from './components/carousel.vue'
-
 Vue.use(Router)
 
 export default new Router({
-  routes: [
-    {
-      path: '/',
-      component: Index 
-    },
-    {
-      path: '/cindex',
-      component:carouselSwiper  ,
-     
-    },
-    {
-      path: '/carousel',
-      component:carousel,
-    },
-    {
-      path:'/details',
-      component:Details,
-    },
-    {
-      path:'/productlist',
-      component:Productlist,
-    },
-    {
-      path:'/login',
-      component:Login,
-    },
-   
-  ]
+
+    routes: [{
+            path: '/',
+            component: Index,
+            children: [{
+                path: '',
+                components: {
+                    indexx: Home,
+                    group: Classify,
+                    mine:Login
+                }
+            }]
+        },
+        {
+            path: '/product',
+            component: Product,
+        },
+        {
+            path: '/Details',
+            component: Details
+        },
+        {
+            path: '/find',
+            component: Find
+        },
+        {
+            path: '/search',
+            component: Search
+        },
+        {
+            path: '/cart',
+            component: Cart
+        }
+        // ,
+        // {
+        //     path: '/login',
+        //     component:Login
+        //     },
+    ]
+
 })

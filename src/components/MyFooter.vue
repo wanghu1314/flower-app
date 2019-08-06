@@ -1,28 +1,76 @@
 <template> <!--保存当前组件的HTML片段-->
-   
- <footer >
-			
-	<div class="footer">
-		<div class="footer_img"><img src="img/footer-logo.jpg" alt=""></div>
-		<div class="footer_nav">
-			<a href="#">联系我们</a><span>|</span>
-			<a href="#">订购帮助</a><span>|</span>
-			<a href="#">企业合作</a> <span>|</span>
-			<a href="#">生产经营资质</a><span>|</span>
-			<a href="#">公告专区</a>
-		</div>
-		<div class="footer_text">
-			<span>订购专线：000 000 2121（服务时间 08:00–22:00）</span>
-			<span>客服电话：021-6688888（全国） | kefu@21cake.com（邮箱）</span>
-			<span>当日蛋糕配送截止下单时间：北京：16:50；上海：16:30；杭州/广州：13:50；天津：10:30；苏州/无锡/深圳：11:00</span>
-			<span>网站注册公司名称: 北京甜美时光食品有限公司 地址: 北京市北京经济技术开发区兴海二街5号院3号楼 </span>
-		</div>
-		<div class="footer_copy">
-			<span>Copyright© 甜美时光Cake蛋糕官网商城 2007-2018, 版权所有 <a href="#">京ICP备00006254号-1</a></span>
-		</div>
-	</div>
-	</footer>
-
+    <footer class="footer" >
+        <div class="footer-top">
+           <div class="footer-top-nav">
+                <a class="">
+                    <div class="">高档花材<span class="">100%品质保证</span></div>
+                </a>	
+                <a class="">
+                    <div class="">同城配送<span class="">1-3小时送达</span></div>
+                </a>
+                <a class="">
+                    <div class="">特色服务<span class="">高端私人定制</span></div>
+                </a>
+                <a class="">
+                    <div class="">时尚原创花艺<span class="">资深花艺师独家设计</span></div>
+                </a>	
+           </div>	
+        </div>
+        <div class="footer-down">
+            <div class="footer-text">
+                <ul>
+                    <li><a href="">购物说明</a></li>
+                    <li><a href="">APP专享介绍</a></li>
+                    <li><a href="">购物流程</a></li>
+                    <li><a href="">支付说明</a></li>
+                </ul>
+                <ul>
+                    <li><a href="">配送说明</a></li>
+                    <li><a href="">配送范围</a></li>
+                    <li><a href="">配送费用</a></li>
+                    <li><a href="">配送时间</a></li>
+                </ul>
+                <ul>
+                    <li><a href="">售后保障</a></li>
+                    <li><a href="">取消/修改订单</a></li>
+                    <li><a href="">关于签收</a></li>
+                    <li><a href="">关于投诉</a></li>
+                </ul>
+                <ul>
+                    <li><a href="">关于我们</a></li>
+                    <li><a href="">品牌介绍</a></li>
+                    <li><a href="">实力证明</a></li>
+                    <li><a href="">花语大全</a></li>
+                    <li><a href="">鲜花百科</a></li>
+                </ul>
+                <ul>
+                    <li class="footer_t"><a href="">同城配送</a></li>
+                    <li><a href="">北京鲜花</a></li>
+                    <li><a href="">上海鲜花</a></li>
+                    <li><a href="">广州鲜花</a></li>
+                    <li><a href="">更多城市</a></li>
+                </ul>
+                <div>&nbsp;&nbsp;友情链接：</div>
+            </div>
+            <div class="footer-phone">
+                <span class="footer_t">客服电话</span>
+                <h5>4000-192-520</h5>
+                <p>工作日 08:30-21:30</p>
+                <p>节假日 06:00-24:00</p>
+            </div>
+            <div class="footer-app">
+                <div class="footer-f">
+                    <span>Iphone下载</span>
+                    <div><span class="app_img"></span></div>
+                </div>
+                <div class="footer-r">
+                    <span>Android下载</span>
+                    <div><span class="wechat_img"></span></div>
+                </div>
+                <p>手机扫码即可下载Rosewin鲜花APP</p> 
+            </div>
+        </div>
+    </footer>
 </template>
 <script>
   //组件本质就是一个对象，对象需要抛出到外部被别人使用
@@ -49,70 +97,156 @@
   }
 </script>
 <style scoped>
- 
-/*************底部**************/
-/****************新品推荐****************/
+ .footer .footer-top{
+    background: #000;
+    
+}
+.footer-top-nav{
+    width: 100%px;
+    margin: 0 auto;
+    display:flex;
+    justify-content:space-between;
+    
+}
+.footer-top a:nth-child(1){
+    background:url("../../public/img/foot_ico_hc.png") no-repeat left center;
+    width: 330px;
+    margin-left: 45px;
+}
+.footer-top a:nth-child(2){
+    background:url("../../public/img/foot_ico_ps.png") no-repeat left center;
+    width: 330px;
+    margin-left: 45px;
+}
+.footer-top a:nth-child(3){
+    background:url("../../public/img/foot_ico_service.png") no-repeat left center;
+    width: 330px;
+    margin-left: 45px;
+}
+.footer-top a:nth-child(4){
+    background:url("../../public/img/foot_ico_flower.png") no-repeat left center;
+    width: 330px;
+    margin-left: 45px;
+}
+.footer-top a {
+    height: 70px;
+    display: block;
+    float: left;
+    color: #fff;
+}
+.footer-top a div{
+    margin-left: 60px;
+    font-size: 16px;
+    padding-top: 14px;
+}
+.footer-top a div span{
+    display: block;
+    margin-top: 4px;
+    font-size: 12px;
 
-
-.footer{
-	/* margin-top:60px; */
-	background: #333;
-	width:100%;
-/*	height:400px;*/
-}
-.footer .footer_img{
-	width: 240px;
-	height: 88px;
-	margin:0 auto;
-	padding-top:40px;
-}
-.footer .footer_img img{
-	width: 240px;
-	height: 88px;
-}
-.footer_nav{
-	color:#fff;
-	text-align:center;
-	margin-top:25px;
-	
-
-}
-.footer_nav a{
-	color:#fff;
-	display:inline-block;
-	font-size:14px;
-	margin:0 40px;
-}
-.footer_text{
-	color:#9a9a9a;
-	text-align:center;
-	line-height:20px;
-	font-size:12px;
-	margin-top:18px;
-}
-.footer_text span{
-	display:block;
-}
-.footer_text span:first-child{
-	font-weight:bold;
-}
-.footer_copy{
-	color:#9a9a9a;
-	text-align:center;
-	margin:15px 0 30px 0;
-	padding:10px 0;
-	font-size:12px;
-	border-top:1px solid #616161;
-}
-.footer_copy span{
-	color:#616161;
-	line-height:24px;
-}
-.footer_copy span a{
-	color:#616161;
 }
 
+.footer-down{
+    display:flex;
+    justify-content: space-between;
+    width: 100%px;
+    margin: 0 auto;
+    padding-top: 40px;
+}
+
+.footer-text{
+    display: flex;
+    flex-wrap: wrap;/*子元素换行*/
+    justify-content: space-between;
+}
+.footer-text ul{
+    width: 114px;
+    margin-bottom: 10px;
+    padding-left: 10px;
+}
+.footer-text ul li{
+    line-height: 25px;
+}
+.footer-text ul li a{
+    font-size:12px;
+    color: #555;
+}
+.footer-text ul li:first-child a{
+    margin-bottom: 8px;
+    color: #333;
+    font-size:14px;
+}
+.footer-text div{
+    color: #333;
+    font-size: 12px;
+}
 
 
+.footer-phone{
+    text-align: center;
+    height: 278px;
+    width: 278px;
+    border-right: 1px solid #e8e8e8;
+    border-left: 1px solid #e8e8e8;
+}
+.footer-phone .footer-t{
+    display: block;
+    padding-top: 5px;
+    color: #333;
+    font-size: 14px;
+}
+.footer-phone h5{
+    line-height: 65px;
+    font-size: 24px;
+    color: #555;
+}
+.footer-phone p{
+    line-height: 30px;
+    font-size: 12px;
+    color: #555;
+}
 
+
+.footer-app{
+    padding-left: 25px;
+    text-align:center;
+    width: 275px;
+}
+.footer-f{
+    float: left;
+}
+.footer-r{
+    float:right;
+}
+.footer-f div,.footer-r div{
+    margin-top: 13px;
+    border: 1px solid #e8e8e8;
+    padding: 5px;
+}
+.footer-phone span,.footer-app span{
+    color: #333;
+    font-size: 14px;
+}
+.app_img, .wechat_img {
+    display: block;
+    width: 100px;
+    height: 100px;
+}
+.app_img {
+    background: url("../../public/img/foot_app_ios.jpg");
+    background-size: contain;
+}
+.wechat_img {
+    background: url("../../public/img/foot_app_android.jpg");
+    background-size: contain;
+}
+.footer-app p{
+    float:left;
+    width:275px;
+    line-height:60px;
+    color: #999;
+    font-size: 12px;
+    text-align:center;
+    display: block;
+}
 </style>

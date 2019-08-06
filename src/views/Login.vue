@@ -1,340 +1,272 @@
 <template>
-<!--  登录-->
-    <div class="container">
-        <div class="login-wrap">
-            <div class="login-form">
-                <div class="login-box">
-                    <div class="switch-type">
-                        <ul class="clearfix">
-                            <li class="login " :class="[!isLogin ? 'on' : '']" @click="isLogin=false">账号登录</li>
-                            <li class="reg" :class="[isLogin ? 'on':'']" @click="isLogin=true">用户注册</li>
-                        </ul>
-                    </div>
-                    <div class="msg" v-text="msg"></div>
-                    <!-- 账号登录 -->
-                    <div class="switch-container">
-                        <div class="content">
-                            <!-- 登录 -->
-                            <div class="content-login" v-if="!isLogin">
-                                <div class="item">
-                                   <i class="iconfont icon-yonghu2"></i>
-                                   <input type="text" placeholder="请输入用户名" v-model="uname" @blur="unameBlur">
-                                </div>
-                                <div class="item">
-                                   <i class="iconfont icon-suo"></i>
-                                   <input type="password" placeholder="请输入密码" v-model="upwd" @blur="pwdBlur">
-                                </div>
-                                <div class="item-button">
-                                   <input type="submit" value="登录" class="btn" @click="goLogin">
-                                </div>
-                                <a href="#" class="notpwd">忘记密码?</a>
-                            </div>
-                             <!-- 注册 -->
-                            <div class="reg-box" v-if="isLogin">
-                                <div class="item">
-                                   <i class="iconfont icon-yonghu2"></i>
-                                   <input type="text" placeholder="请输入用户名" @blur="regName" v-model="regname">
-                                </div>
-                                <div class="item">
-                                   <i class="iconfont icon-suo"></i>
-                                   <input type="password" placeholder="请输入密码" v-model="password" @blur="regpwd">
-                                </div>
-                                <div class="item">
-                                   <i class="iconfont icon-suo"></i>
-                                   <input type="password" placeholder="请确认输入密码" v-model="password1" @blur="regpwd1">
-                                </div>
-                                <div class="item-button">
-                                   <input type="submit" value="注册" class="btn" @click="goReg">
-                                </div>
-                                <a href="#" class="notpwd">忘记密码?</a>
-                            </div> 
-                            
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
+    <div>
+        <home-header></home-header>
+        <div class="img-box">
+            <img src="../../public/img/appimg/login-user.jpg" alt="">
         </div>
+        <div class="login-box">
+            <div class="userico" :class="[!isLogin ? 'active' : '']" @click="isLogin=false">会员账号登录</div>
+            <div class="mobileico" :class="[isLogin ? 'active':'']" @click="isLogin=true">注册</div>
+        </div>
+        <div class="loginUser" v-if="!isLogin">
+            <ul class="login-list">
+                <li>
+                    <span>账号 :</span>
+                    <i class="iconfont icon-yonghu2"></i>
+                    <input type="text" placeholder="请输入用户名"  @blur="loginUser" v-model="uname">
+                </li>
+                <li>
+                    <span>密码 :</span>
+                    <i class="iconfont icon-suo"></i>
+                    <input type="password" placeholder="请输入密码" @blur="loginUpwd" v-model="pwd">
+                </li>
+            </ul>
+            <button class="login-button" @click="goLogin">登录</button>
+        </div>
+        <div class="regUser" v-if="isLogin">
+            <ul class="login-list">
+                <li>
+                    <span>账号 :</span>
+                    <i class="iconfont icon-yonghu2"></i>
+                    <input type="text" placeholder="请输入用户名" @blur="regUser" v-model="regUname">
+                </li>
+                <li>
+                    <span>密码 :</span>
+                    <i class="iconfont icon-suo"></i>
+                    <input type="password" placeholder="请输入密码" @blur="regUpw" v-model="regUpwd">
+                </li>
+                 <li>
+                    <span>确认 :</span>
+                    <i class="iconfont icon-suo"></i>
+                    <input type="password" placeholder="请确认密码" @blur="regUpw1" v-model="regUpwd1">
+                </li>
+            </ul>
+            <button class="login-button" @click="goReg">注册</button>
+        </div>
+        
     </div>
 </template>
 <script>
-import qs from "qs"
-
+import qs from '../../node_modules/qs/dist/qs' 
+import homeHeader from './child/Home-header'
 export default {
     data(){
         return{
-            uname:"",
-            upwd:"",
-            regname:"",
-            msg:"",
-            isLogin:false,
-            password:"",
-             password1:"",
-            
+            uname:'',//用户名
+            pwd:'',//密码
+            regUname:'',
+            regUpwd:'',
+            regUpwd1:'',
+            isLogin:false
         }
     },
-    watch: {'$route'(to, from){this.$router.go(0);}},
+    components:{
+      "home-header":homeHeader,
+    },
     methods:{
-        // 用户验证
-        unameBlur(){
-            var uname=this.uname;
-            var reg=/^\w{4,8}$/i;
-            if(uname==""){
-                this.msg="用户名不能为空"
-            }else if(!reg.test(uname)){
-                this.msg="用户名4-8位字符"
-            }else{
-                   this.msg=""
-                    }   
-        },
-        // 密码验证
-        pwdBlur(){
-            var reg=/^\w{6,8}$/
-            var upwd=this.upwd;
-            if(!upwd){
-                this.msg="密码不能为空";
-            }else if(!reg.test(upwd)){
-                this.msg="密码6-12位字符"
-            }else {
-                this.msg=""
+        //用户名失焦验证
+        loginUser(){
+            var reg=/^\w{4,8}$/i
+            if(!this.uname){
+               this.$toast({
+                   message:'用户名不能为空',
+                   position:'center',
+                   duration:1000
+               })
+            }else if(!reg.test(this.uname)){
+                 this.$toast({
+                   message:'用户名4-8字符',
+                   position:'center',
+                   duration:1000
+               })
             }
         },
-        // 登录验证
-        goLogin(){ 
+         //密码失焦验证
+        loginUpwd(){
+            var reg=/^\w{6,8}$/
+            var pwd=this.pwd;
+            if(!pwd){
+               this.$toast({
+                   message:'密码不能为空',
+                   position:'center',
+                   duration:1000
+                   })
+            }else if(!reg.test(pwd)){
+                this.$toast({
+                   message:'密码6-8字符',
+                   position:'center',
+                   duration:1000
+               })
+            }
+        },
+        //登录验证
+        goLogin(){
             var uname=this.uname;
-            var upwd=this.upwd;
+            var upwd=this.pwd;
             this.axios.post("user/login",qs.stringify({uname,upwd}))
             .then(result=>{
                 if(result.data.code>0){
-                    this.$router.push({path:'index'})
+                    this.$toast({
+                   message:'登陆成功',
+                   position:'center',
+                   duration:1000
+                   });
+                   setTimeout(()=>{this.$router.replace('/')},2000)
                     sessionStorage.setItem("uname",this.uname)
                 }else{
-                    this.msg="用户名密码错误";
-                    this.uname="";
-                    this.upwd="";
+                 this.$toast({
+                   message:'用户名或密码不正确',
+                   position:'center',
+                   duration:1000
+                 })
                 } 
             })
         },
-        // 注册验证
-        regName(){
-             var uname=this.regname;
-            var reg=/^\w{4,8}$/i;
-            if(uname==""){
-                this.msg="用户名不能为空"
-            }else if(!reg.test(uname)){
-                this.msg="用户名4-8位字符"
+        //注册用户验证
+        regUser(){
+            var reg=/^\w{4,8}$/i
+            if(!this.regUname){
+               this.$toast({
+                   message:'用户名不能为空',
+                   position:'center',
+                   duration:1000
+               })
+            }else if(!reg.test(this.regUname)){
+                 this.$toast({
+                   message:'用户名4-8字符',
+                   position:'center',
+                   duration:1000
+               })
             }else{
-                 this.axios.post("user/check",qs.stringify({uname:this.regname}))
-                .then(result=> {
-                    // console.log(result)
+                this.axios.post("user/check",qs.stringify({uname:this.regUname})).then(result=>{
                     if(result.data.code>0){
-                        this.msg="用户已注册"
-                    }else{
-                        this.msg="";
+                        this.$toast({
+                            message:'该用户名已注册',
+                            position:'center',
+                            duration:1000
+                            })
                     }
-            })
-            }
-            
-        },
-        // 注册密码验证
-        regpwd(){
-             var reg=/^\w{6,8}$/
-            var password=this.password;
-            if(!password){
-                this.msg="密码不能为空";
-            }else if(!reg.test(password)){
-                this.msg="密码6-12位字符"
-            }else {
-                this.msg=""
+                })
             }
         },
-        // 密码确认
-        regpwd1(){
-             var password1=this.password1;
-            if(!password1){
-                this.msg="密码也不能为空";
-            }else if(this.password!=password1){
-                this.msg="密码输入不一致"
-            }else {
-                this.msg=""
+        //密码
+        regUpw(){
+            var reg1=/^\w{6,8}$/
+            var regUpwd=this.regUpwd
+            if(!regUpwd){
+                this.$toast({
+                   message:'密码不能为空',
+                   position:'center',
+                   duration:1000
+               })
+            }else if(!reg1.test(regUpwd)){
+                this.$toast({
+                   message:'密码6-8位字符',
+                   position:'center',
+                   duration:1000
+               })
+            }
+        },
+        //再次确认密码
+        regUpw1(){
+            if(!this.regUpwd1){
+                this.$toast({
+                   message:'密码不能为空',
+                   position:'center',
+                   duration:1000
+               })
+            }else if(this.regUpwd1!=this.regUpwd){
+                this.$toast({
+                   message:'密码不一致',
+                   position:'center',
+                   duration:1000
+               })
             }
         },
         // 注册
         goReg(){
-            var uname=this.regname;
-            var upwd=this.password;
-            if(uname==""||upwd==""){alert("用户名或密码不能为空")}else{
-            this.axios.post("user/reg",qs.stringify({uname:this.regname,upwd:this.password}))
-            .then(result=>{
-                if(result.data.code>0){
-                    sessionStorage.setItem("uname",uname);
-                    this.$router.push({ path:'/index'})
-                }
+            if(!this.regUser){
+                this.$toast({
+                   message:'请输入用户名密码',
+                   position:'center',
+                   duration:1000
+               })
+            }else{
+                var  url="/user/reg"
+                this.axios.post(url,qs.stringify({uname:this.regUname,upwd:this.regUpwd})).then(result=>{
+                    if(result.data.code>0){
+                        this.$toast({
+                            message:'注册成功',
+                            position:'center',
+                            duration:1000
+                        })
+                         setTimeout(()=>{this.isLogin=false},1000)
+                    }
                 })
-             }
-         }
-      }  
+            }
+        }
+    }
 }
 </script>
-<style scoped>
-    .container{
-        width:100%;
-        height:800px;
-        background-image: url('../../public/img/bg5.jpg');
-        margin:10px 0;
 
-
-    }
-    .container .login-wrap{
-        width:1200px;
-        height:600px;
-        margin: 0 auto;
-        position:relative;
-        
-    }
-    .container .login-wrap .login-from{
-        width:350px;
-        height:530px;
-    }
-.container .login-wrap .login-box{
-    float: right;
-    position: relative;
-    top: 150px;
-    width: 350px;
-    background-color: #fff;
-    padding:20px 30px 0 30px;
-    box-sizing: border-box;
+<style>
+.img-box{
+    width:100%;
 }
-.container .login-wrap .login-box .msg{
-    color:red;
-    font-size: 13px !important;
+.img-box img{
+    width:100%;
 }
-.container .login-wrap:after{
-    content:"";
-    display:block;
-    clear:both;
+.login-box{
+    width: 100%;
+    height:2.5rem;
+    border-bottom: 0.01rem solid #ccc;
+    display: flex;
 }
-  .container .login-wrap .login-box .switch-type{
-    position: relative;
-    width: 290px;
-    overflow: hidden;
-  }
-  .container .login-wrap .login-box .switch-type ul{
-    position: relative;
-    font-size: 16px;
-    font-weight: bold;
-    color: #888;
-    border-bottom: 1px solid #d1d1d1;
-    width: 290px;
-    
-  }
-  .container .login-wrap .login-box .switch-type ul .login{
-    position: relative;
-    float: left;
-    width: 145px;
+.login-box div{
+    width:50%;
     text-align: center;
-    padding: 13px 0;
-    cursor: pointer;
-  }
-   .container .login-wrap .login-box .switch-type ul .reg{
-    position: relative;
-    float: left;
-    width: 145px;
-    text-align: center;
-    padding: 13px 0;
-    cursor: pointer;
-   }
-   .container .login-wrap .login-box .switch-type ul>li.on{
-    color: #333;
-    border-bottom: 2px solid #333;
-    margin-bottom: -1px;
-    
-   }
-.container .login-wrap .login-box .msg{
-    padding:10px 0;
-    height:20px;
-    line-height: 20px;
-    font-size: 16px;
+    line-height: 2.5rem;
+    font-size: 1rem;
 }
- .container .switch-container {
-    width: 300px;
-    overflow: hidden;
-    margin: 0 auto;
-    position: relative;
- }  
- .container .switch-container .content{
-     position: relative;
-     width: 100%;
-     box-sizing: content-box;
-     
- }
- .container .switch-container .content .content-login{
-     width: 300px;
-     height: 232px;
-    
-     
- }
- .container .switch-container .content .item{
-    position: relative;
-    width: 290px;
-    height: 38px;
-    line-height: 38px;
-    border: 1px solid #d2d2d2;
-    margin-bottom: 18px;
-    box-sizing: content-box;
- }
- .container .switch-container .content .item .iconfont{
-    position: absolute;
-    color: #e8e8e8;
-    left: 10px;
-    top: 11px;
-    font-size: 18px;
-    width: 18px;
-    height: 18px;
-    line-height: 18px;
-    z-index: 5;
-    
- }
-  .container .switch-container .content .item>input{
-    position: absolute;
-    border: 0;
-    width: 290px;
-    padding: 5px 10px 5px 35px;
-    height: 38px;
-    outline: 0;
+.active{
+    border-bottom: 0.01rem solid #000;   
+}
+.login-list{
+    width:100%;
+    border-bottom: 0.01rem solid #ccc;
+    margin-left: 0.5rem;
+}
+.login-list li{
+    width:100%;
+    height:3rem;
+    text-align: center;
+    padding:0.1rem;
+}
+.login-list li span{
+width:30%;
+height:3rem;
+line-height: 3rem;
+margin-right:1rem;
+}
+.login-list li input{
+    width:70%;
+    height:3rem;
+    padding:0.5rem;
     box-sizing: border-box;
-   
-  }
-  .container .switch-container .content .btn{
-    width: 290px;
-    height: 40px;
-    border: 0;
-    font-size: 16px;
-    font-weight: bold;
-    outline: 0;
-    border-radius: 3px;
-    background: #333;
+    border-bottom: 0.01rem solid #ccc;
+}
+.login-list li:last-child input{
+    border-bottom: none;
+}
+.login-button{
+    width:100%;
+    height:2.5rem;
+    line-height: 2.5rem;
+    text-align: center;
+    background:#666;
+    margin-top:2rem;
     color:#fff;
-    cursor: pointer;
-  }
-  .container .switch-container .content .notpwd{
-    margin-top: 8px;
-    display: block;
-    font-size: 12px;
-    color: #8c8c8c;
-    
-  }
-  .container .switch-container .content a.notpwd:hover 
-  {
-      text-decoration: underline;
-      color:#333;
-  }
-  /* 注册 */
-.container .switch-container .content .reg-box{
-      width:300px;
-      height:260px;
-     
-  }
-</style>
 
+}
+</style>
 

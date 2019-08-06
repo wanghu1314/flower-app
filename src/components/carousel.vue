@@ -1,7 +1,11 @@
 <template>
   <swiper class="swiper" :options="swiperOption"  ref="mySwiper"  v-if="list.length">
     <!-- slides -->
-    <swiper-slide id="list"  v-for="(elem,i) of list" :key="i"><a :href="elem.href"><img :src="elem.img" alt="elem.title"></a></swiper-slide>
+    <swiper-slide id="list"  v-for="(elem,i) in list" :key="i">
+        <a href="javascript:;">
+          <img :src="elem" alt="elem.title">
+        </a>
+    </swiper-slide>
     <!-- Optional controls -->
     <div class="swiper-pagination " slot="pagination"></div>
     <div class="swiper-button-prev btn-banner" slot="button-prev"></div>
@@ -16,7 +20,12 @@
     name: 'carrousel',
     data() {
       return {
-        list:[{img:'img/banner1.jpg'},{img:'img/banner1.png'},{img:'img/banner1.png'},{img:'img/banner1.png'},{img:'img/banner1.png'},{img:'img/banner1.png'},{img:'img/banner1.png'},{img:'img/banner1.png'}],
+        list:[
+          'img/appimg/banner1.jpg',
+          'img/appimg/banner2.jpg',
+          'img/appimg/banner3.jpg',
+          'img/appimg/banner4.jpg'
+         ],
         swiperOption: {
           // spaceBetween: 30, //板块间距
           loop: true, //无缝轮播
@@ -41,7 +50,7 @@
         "index/carousel"
       ).then(result=>{
        
-       this.list=result.data
+      //  this.list=result.data
         //  console.log(this.list)
 
        
@@ -78,22 +87,25 @@
 <style scoped>
   .swiper {
     width: 100%;
-    height:533px;
-    margin-top:15px;
-   margin-bottom:15px;
-   z-index:-10;
+    /* height:200rpx; */
+    /* margin-top:15px; */
+   /* margin-bottom:15px; */
   }
 
   swiper-slide {
     width: 100%;
     height:100%;
   }
+#list a img{
+  display:inline-block;
+  width:100%;
+}
   .swiper-button-prev,.swiper-button-next{
   width:27px;
   height:66px;
-  /* background:url("../../public/img/index/pic_066.png") no-repeat; */
+  background:url("../../public/img/index/pic_066.png") no-repeat;
   position:absolute;
-  top:240px;
+  top:200px;
   opacity:0;
   cursor: pointer;
   z-index:9999;
